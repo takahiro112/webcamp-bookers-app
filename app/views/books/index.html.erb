@@ -1,0 +1,49 @@
+<P id="notice">
+  <%= notice %>
+</P>
+
+
+<h1>Books</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>リーダブルコード</td>
+    <td>より良いコードを書くためのシンプルで実践的なコード</td>
+    <tb></tb>
+  </tr>
+  <% @books.each do |book| %>
+   <tr>
+     <td><%= book.title %></td>
+     <td><%= book.body %></td>
+     <td>
+        <%= link_to "show",book_path(book) %>
+        <%= link_to "edit",edit_book_path(book) %>
+        <%= link_to "destroy",book_path(book) , method: :delete %>
+     </td>
+   </tr>
+  <% end %>
+</table>
+
+<h2>New Book</h2>
+
+<% if @book.errors.any? %>
+    <p>error!!</p>
+    <ul>
+        <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= form_with model:@book, local:true do |f| %>
+ <h3>Title</h3>
+ <%= f.text_field :title %>
+ <h3>Body</h3>
+ <%= f.text_area :body %>
+ <%= f.submit "Create Book" %>
+<% end %>
